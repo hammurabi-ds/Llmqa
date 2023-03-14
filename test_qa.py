@@ -1,5 +1,4 @@
 import faiss
-from langchain import HuggingFaceHub
 from langchain import OpenAI
 from langchain import VectorDBQA
 from langchain.chains import VectorDBQAWithSourcesChain
