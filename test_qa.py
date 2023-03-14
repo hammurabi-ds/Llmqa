@@ -68,14 +68,11 @@ if __name__=='__main__':
 
     parser = argparse.ArgumentParser(description='Ask a question')
     parser.add_argument('--question', type=str, help='The question to ask')
-
     args = parser.parse_args()
 
     vector_store = get_data()
 
-    language_chain = get_chain(args.type,
-                               vector_store,
-                               args.model_name,)
+    language_chain = get_chain(vector_store)
 
     result = language_chain.run(args.question)
     print("_______________________________________")
