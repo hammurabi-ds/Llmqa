@@ -44,11 +44,17 @@ class Llmqa(object):
         """
         Here we create a vector store from the documents.
         """
+
+        # read data and split text
         self._get_data()
         self._split_text()
  
         print('3: creating vectorstore..')
+
+        # create embeddings using sentence transformer
         embeddings = HuggingFaceEmbeddings()
+
+        # create vectorstore using faiss
         self.vectordb = FAISS.from_texts(self.docs, 
                                     embeddings)
         
@@ -80,8 +86,10 @@ class Llmqa(object):
         Initialize the language chain
         """
 
+        # get the prompt template
         self._get_prompt_template()
 
+        # initialize OpenAI LLM
         self.chain = VectorDBQA.from_chain_type(llm=OpenAI(model_name='text-davinci-003',
                                                             temperature=0, 
                                                             max_tokens=256), 
@@ -91,6 +99,8 @@ class Llmqa(object):
                                             k=3)
     
     def ask_question(self, question):
+
+        # initialize the chain and run questions
         self._get_chain()
         result = self.chain.run(question)
         print("_______________________________________")
